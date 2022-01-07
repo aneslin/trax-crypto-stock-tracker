@@ -1,7 +1,8 @@
 const stockHook = document.querySelector("#stockCard")
+const form2 = document.querySelector('#form2')
 //key for stockdata.org. 
 const stockDataKey = 'cLpuGFilZPWRk7OLK4tniIxMab5iHAJfifiHTK5m'
-const testData = {
+const testData = [{
     "ticker": "TSLA",
     "name": "Tesla Inc",
     "exchange_short": "NASDAQ",
@@ -21,7 +22,7 @@ const testData = {
     "volume": 637333,
     "is_extended_hours_price": false,
     "last_trade_time": "2022-01-05T15:59:58.000000"
-};
+}];
 
 
 
@@ -37,6 +38,7 @@ let fetchStock = function(ticker){
                 response.json()
                 //parse response to json
                 .then(function(data){
+                    stockMaker(data)
                     console.log(data)
                     }
                     )
@@ -47,6 +49,7 @@ let fetchStock = function(ticker){
 
 let stockMaker = function(data){
     //create card div
+    console.log("stockmaker- " + data)
     let CardEl = document.createElement("div");
         CardEl.classList.add("card", "blue-grey");
     
@@ -82,20 +85,17 @@ let stockMaker = function(data){
        wrapperEl.appendChild(changeEl);
    
     //apply stock to div
-    stockHook.appendChild(CardEl)
-   
-   
-   
-   
+    stockHook.appendChild(CardEl)}
 
-   
-   
-   
-   
-   
-   
-   
+function form2Handler(event){
+    event.preventDefault()
+    textInput = document.getElementById('stockInput')
+    let ticker = textInput.value.trim()
+    console.log(ticker)
+    fetchStock(ticker)
 }
 
-fetchStock("TSLA")
-stockMaker(testData)
+
+
+
+form2.addEventListener("submit",form2Handler)
