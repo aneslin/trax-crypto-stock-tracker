@@ -7,12 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Staatliches&display=swap">
     <link rel="stlyesheet" href="./assets/css/style.css">
 </head>
 
 <body>
+    <header class="col l4 s12 grey darken-2">
+        <h2 class="white-text">TRAX</h2>
+        <p class="white-text">Stay up to date on current stocks and cryptos.</p>
+    </header>
     <div class="row">
-        <div class="col s12 m3 s3 offset-m9">
+        <div class="col s6 m3">
             <div class="card small grey darken-1">
                 <form id="form1" class="card-content white-text">
                     <label for="cryptoInput" class="white-text">Crypto</label>
@@ -24,12 +29,13 @@
                     <input type="text" id="stockInput" class="white-text">
                     <button type="submit" value="Submit" class="waves-effect waves-light btn-small red lighten-2">Search</button>
                 </form>
+                <div id="stockCard"></div>
             </div>    
         </div>        
     </div>            
                 
 
-                <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/script.js"></script>
 </body>
 
 </html>
