@@ -37,9 +37,10 @@ let fetchStock = function(ticker){
             //if response is good, pull response
                 response.json()
                 //parse response to json
-                .then(function(data){
-                    stockMaker(data)
-                    console.log(data)
+                .then(function(stock){
+                    stockMaker(stock.data[0])
+                    console.log(stock)
+                    console.log(stock.data[0])
                     }
                     )
                     }
@@ -48,11 +49,11 @@ let fetchStock = function(ticker){
 };
 
 let stockMaker = function(data){
+    stockHook.innerHTML=''
     //create card div
-    console.log("stockmaker- " + data)
     let CardEl = document.createElement("div");
         CardEl.classList.add("card", "blue-grey");
-    
+        CardEl.setAttribute("id","stockBlock")
     //create card title from stock title
    let nameEl = document.createElement("h3");
        nameEl.classList.add("card-title");
@@ -89,9 +90,12 @@ let stockMaker = function(data){
 
 function form2Handler(event){
     event.preventDefault()
+    //get value of form input field
     textInput = document.getElementById('stockInput')
+    //remove space
     let ticker = textInput.value.trim()
     console.log(ticker)
+    //pass ticker value into fetchStock
     fetchStock(ticker)
 }
 
