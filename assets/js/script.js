@@ -31,8 +31,11 @@ let fetchStock = function(ticker){
     let stockUrl = `https://api.stockdata.org/v1/data/quote?symbols=${ticker}&api_token=${stockDataKey}`;
     fetch(stockUrl)
     .then(function(response){
+        //check if response is good
         if (response.ok){
+            //if response is good, pull response
                 response.json()
+                //parse response to json
                 .then(function(data){
                     console.log(data)
                     }
@@ -43,31 +46,56 @@ let fetchStock = function(ticker){
 };
 
 let stockMaker = function(data){
+    //create card div
     let CardEl = document.createElement("div");
-    CardEl.classList.add("card", "blue-grey");
+        CardEl.classList.add("card", "blue-grey");
+    
+    //create card title from stock title
    let nameEl = document.createElement("h3");
-   nameEl.classList.add("card-title");
+       nameEl.classList.add("card-title");
+       nameEl.textContent = data.name;
+       CardEl.appendChild(nameEl);
+    
+       //list wrapper for stock attributes
    let wrapperEl = document.createElement("ul");
+       CardEl.appendChild(wrapperEl)
+
+    //attributes
    let tickerEl = document.createElement("li");
+       tickerEl.textContent = ` Symbol: ${data.ticker}`;
+       wrapperEl.appendChild(tickerEl);
+
    let priceEl = document.createElement("li");
+       priceEl.textContent = `Price: ${data.price}`;
+       wrapperEl.appendChild(priceEl);
+
    let highEl = document.createElement("li");
+       highEl.textContent =`Daily High: ${data.day_high}`;
+       wrapperEl.appendChild(highEl);
+    
    let lowEl = document.createElement('li');
+       lowEl.textContent = `Daily Low: ${data.day_low}`;
+       wrapperEl.appendChild(lowEl);
+
    let changeEl = document.createElement("li");
-   nameEl.textContent = data.name;
-   tickerEl.textContent = ` Symbol: ${data.ticker}`;
-   priceEl.textContent = `Price: ${data.price}`;
-   highEl.textContent =`Daily High: ${data.day_high}`;
-   lowEl.textContent = `Daily Low: ${data.day_low}`;
-   changeEl.textContent = `Day Change: ${data.day_change}`
-   wrapperEl.appendChild(tickerEl);
-   wrapperEl.appendChild(priceEl);
-   wrapperEl.appendChild(highEl);
-   wrapperEl.appendChild(lowEl);
-   wrapperEl.appendChild(changeEl);
-   CardEl.appendChild(nameEl);
-   CardEl.appendChild(wrapperEl)
+       changeEl.textContent = `Day Change: ${data.day_change}`
+       wrapperEl.appendChild(changeEl);
+   
+    //apply stock to div
     stockHook.appendChild(CardEl)
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
 }
 
-
+fetchStock("TSLA")
 stockMaker(testData)
