@@ -28,6 +28,9 @@ const testData = [{
     "last_trade_time": "2022-01-05T15:59:58.000000"
 }];
 
+let stockSearches = [];
+let cryptoSearches = [];
+
 var formSubmitHandler = function(event) {
     // prevent page from refreshing
     event.preventDefault();
@@ -37,6 +40,7 @@ var formSubmitHandler = function(event) {
 
     if (symbols) {
       cryptoData(symbols);
+      saveCrypto(symbols);
       
     } else {
       console.log("Please enter a crypto Symbol")
@@ -183,8 +187,53 @@ function form2Handler(event){
     let ticker = textInput.value.trim()
     console.log(ticker)
     //pass ticker value into fetchStock
-    fetchStock(ticker)
+    fetchStock(ticker);
+    saveStocks(ticker);
 }
+
+function saveStocks(stockName) {
+
+    if (localStorage.getItem('stockSearch') === null) {
+        let stockSearchObj = {
+            name: stockName
+        };
+        stockSearches.push(stockSearchObj)
+        localStorage.setItem("stockSearch", JSON.stringify(stockSearches))
+    } 
+    else {
+        stockSearches = localStorage.getItem('stockSearch')
+
+        stockSearches = JSON.parse(stockSearches)
+
+        let stockSearchObj = {
+            name: stockName
+        };
+        stockSearches.push(stockSearchObj)
+        localStorage.setItem("stockSearch", JSON.stringify(stockSearches))
+    };
+};
+
+function saveCrypto(cryptoName) {
+
+    if (localStorage.getItem('cryptoSearch') === null) {
+        const cryptoSearchObj = {
+            name: cryptoName
+        };
+        cryptoSearches.push(cryptoSearchObj)
+        localStorage.setItem('cryptoSearch', JSON.stringify(cryptoSearches))
+    }
+    else {
+        cryptoSearches = localStorage.getItem('cryptoSearch')
+
+        cryptoSearches = JSON.parse(cryptoSearches)
+
+        let cryptoSearchObj = {
+            name: cryptoName
+        };
+        cryptoSearches.push(cryptoSearchObj)
+        localStorage.setItem('cryptoSearch', JSON.stringify(cryptoSearches))
+    };
+};
 
 
 
