@@ -1,11 +1,11 @@
-
 var cryptoInput= document.getElementById("cryptoInput");
 var cryptoBtn = document.getElementById("cryptoBtn");
+var cryptoCardEL = document.querySelector("#cryptoCard");
 
 const stockHook = document.querySelector("#stockCard")
 const form2 = document.querySelector('#form2')
 //key for stockdata.org. 
-const stockDataKey = 'cLpuGFilZPWRk7OLK4tniIxMab5iHAJfifiHTK5m'
+// const stockDataKey = 'cLpuGFilZPWRk7OLK4tniIxMab5iHAJfifiHTK5m'
 const testData = [{
     "ticker": "TSLA",
     "name": "Tesla Inc",
@@ -35,11 +35,9 @@ var formSubmitHandler = function(event) {
     // get value from input element
     var symbols = cryptoInput.value.trim();
 
-  console.log(cryptoInput);
     if (symbols) {
       cryptoData(symbols);
       
-  
     } else {
       console.log("Please enter a crypto Symbol")
     }
@@ -55,6 +53,7 @@ let cryptoData = function(crypto){
       if (response.ok) {
           response.json().then(function (data) {
               // pass lat and long to new api call
+              cryptoCurrency(data)
               console.log(data); 
           });
       }
@@ -71,9 +70,6 @@ let cryptoData = function(crypto){
   }
 
   cryptoBtn.addEventListener("click", formSubmitHandler)
-
-
-
 
 let fetchStock = function(ticker){
     //url to call stockData
@@ -135,6 +131,49 @@ let stockMaker = function(data){
    
     //apply stock to div
     stockHook.appendChild(CardEl)}
+
+
+    
+    let cryptoCurrency = function(data){
+        for( key in data ) {
+            let fetchedData  = data[key]
+          
+        var cryptoName = cryptoInput.value;
+        cryptoCardEL.innerHTML=''
+    //create card div
+    let cryptoInfo = document.createElement("div");
+    cryptoInfo.classList.add("card", "orange");
+    cryptoInfo.setAttribute("id","cryptoBlock")
+    //create card title from stock title
+    let nameEl = document.createElement("h3");
+       nameEl.classList.add("card-title");
+       nameEl.textContent = data.name;
+       cryptoInfo.appendChild(nameEl);
+    
+       //list wrapper for stock attributes
+   let wrapperEl = document.createElement("ul");
+   cryptoInfo.appendChild(wrapperEl)
+
+    //attributes
+   let tickerEl = document.createElement("li");
+       tickerEl.textContent = ` Name: ${cryptoName}`;
+       wrapperEl.appendChild(tickerEl);
+
+   let priceEl = document.createElement("li");
+       priceEl.textContent = `Price: ${fetchedData.usd}`;
+       wrapperEl.appendChild(priceEl);
+
+   let highEl = document.createElement("li");
+       highEl.textContent =`Market Cap (Billions): ${fetchedData.usd_market_cap}`;
+       wrapperEl.appendChild(highEl);
+    
+   let lowEl = document.createElement('li');
+       lowEl.textContent = `Volume (24 hours): ${fetchedData.usd_24h_vol}`;
+       wrapperEl.appendChild(lowEl);
+   
+    //apply stock to div
+    cryptoCardEL.appendChild(cryptoInfo)}
+        }
 
 function form2Handler(event){
     event.preventDefault()
