@@ -5,7 +5,7 @@ var cryptoCardEL = document.querySelector("#cryptoCard");
 const stockHook = document.querySelector("#stockCard")
 const form2 = document.querySelector('#form2')
 //key for stockdata.org. 
-// const stockDataKey = 'cLpuGFilZPWRk7OLK4tniIxMab5iHAJfifiHTK5m'
+const stockDataKey = 'cLpuGFilZPWRk7OLK4tniIxMab5iHAJfifiHTK5m'
 const testData = [{
     "ticker": "TSLA",
     "name": "Tesla Inc",
