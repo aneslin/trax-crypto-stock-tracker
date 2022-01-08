@@ -16,3 +16,6 @@ header {
     border: 5px solid #282828;
 }
 
+.capitalize {
+    text-transform: capitalize;
+}
