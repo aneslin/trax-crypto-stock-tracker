@@ -12,10 +12,13 @@ h2, h3, h4 {
     font-family: "Staatliches", sans-serif;
 }
 
-header {
-    border: 5px solid #282828;
-}
+
 
 .capitalize {
     text-transform: capitalize;
+}
+
+.cardFormat{
+    padding-left: 5px;
+    padding-top: 1px;
 }

@@ -143,7 +143,7 @@ let stockMaker = function(data){
         cryptoCardEL.innerHTML=''
     //create card div
     let cryptoInfo = document.createElement("div");
-    cryptoInfo.classList.add("card", "blue-grey");
+    cryptoInfo.classList.add("card", "blue-grey", "cardFormat");
     cryptoInfo.setAttribute("id","cryptoBlock")
     //create card title from stock title
     let nameEl = document.createElement("h3");
