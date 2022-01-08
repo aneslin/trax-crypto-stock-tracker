@@ -17,23 +17,26 @@
         <p class="white-text">Stay up to date on current stocks and cryptos.</p>
     </header>
     <div class="row">
-        <div class="col s6 m3">
-            <div class="card small grey darken-1">
+        <div class="col s12 m6 l4">
+            <div class="card grey darken-1">
                 <form id="form1" class="card-content white-text">
-                    <label for="cryptoInput" class="white-text">Crypto</label>
+                    <label for="cryptoInput" class="white-text"><span class='card-title'>Crypto</span></label>
                     <input type="text" id="cryptoInput" class="white-text">
                     <button type="submit" value="Submit" class="waves-effect waves-light btn-small red lighten-2" id="cryptoBtn">Search</button>
                 </form>
                 <form id="form2" class="card-content white-text">
-                    <label for="stockInput" class="white-text">Stock</label>
+                    <label for="stockInput" class="white-text"><span class="card-title">Stock</span></label>
                     <input type="text" id="stockInput" class="white-text">
                     <button type="submit" value="Submit" class="waves-effect waves-light btn-small red lighten-2">Search</button>
                 </form>
-                <div id="stockCard"></div>
+              
             </div>  
-            
-            <div id="cryptoCard"></div>
-        </div>        
+             
+        </div>    
+        <div id="cryptoCard"class ="col s12 m6 l8 " ></div>
+        <div id="stockCard" class ="col s12 m6 l8 "></div>
+     
+    
     </div>            
                 
 
