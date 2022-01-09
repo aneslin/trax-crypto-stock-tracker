@@ -1,9 +1,11 @@
 var cryptoInput= document.getElementById("cryptoInput");
 var cryptoBtn = document.getElementById("cryptoBtn");
 var cryptoCardEL = document.querySelector("#cryptoCard");
+const cryptoButtonsEl = document.querySelector("#cryptoButtons")
 
 const stockHook = document.querySelector("#stockCard")
 const form2 = document.querySelector('#form2')
+const stockButtonsEl = document.querySelector("#stockButtons")
 //key for stockdata.org. 
 const stockDataKey = 'cLpuGFilZPWRk7OLK4tniIxMab5iHAJfifiHTK5m'
 const testData = [{
@@ -213,6 +215,7 @@ function saveStocks(stockName) {
         stockSearches.push(stockSearchObj)
         localStorage.setItem("stockSearch", JSON.stringify(stockSearches))
     };
+    displaySearches();
 };
 
 function saveCrypto(cryptoName) {
@@ -235,10 +238,52 @@ function saveCrypto(cryptoName) {
         cryptoSearches.push(cryptoSearchObj)
         localStorage.setItem('cryptoSearch', JSON.stringify(cryptoSearches))
     };
+    displaySearches();
 };
+
+function displaySearches() {
+    cryptoButtonsEl.innerHTML = "";
+
+    if (localStorage.getItem("cryptoSearch")) {
+
+        cryptoSearches = JSON.parse(localStorage.getItem("cryptoSearch"))
+    }
+
+    if (cryptoSearches !== null) {
+        for (var i = 0; i < cryptoSearches.length; i++) {
+
+            // create elements
+            const searchedCrypto = document.createElement("button");
+            searchedCrypto.setAttribute("type", "button");
+            searchedCrypto.classList = "waves-effect waves-light btn-small red lighten-1";
+            searchedCrypto.textContent = cryptoSearches[i].name;
+            cryptoButtonsEl.appendChild(searchedCrypto);
+        }
+    }
+
+    stockButtonsEl.innerHTML = "";
+
+    if (localStorage.getItem("stockSearch")) {
+
+        stockSearches = JSON.parse(localStorage.getItem("stockSearch"))
+    }
+
+    if (stockSearches !== null) {
+        for (var i = 0; i < stockSearches.length; i++) {
+
+            // create stock elements
+            const searchedStock = document.createElement("button");
+            searchedStock.setAttribute("type", "button");
+            searchedStock.classList = "waves-effect waves-light btn-small red lighten-1";
+            searchedStock.textContent = stockSearches[i].name;
+            stockButtonsEl.appendChild(searchedStock);
+        }
+    }
+}
 
 
 
 
 form2.addEventListener("submit",form2Handler)
 
+displaySearches();
