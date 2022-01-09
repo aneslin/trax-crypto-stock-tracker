@@ -12,7 +12,15 @@ h2, h3, h4 {
     font-family: "Staatliches", sans-serif;
 }
 
+header{
+    margin: 1px 10px 10px;
+    padding: 5px;
+}
 
+.titleText {
+    margin-left: 0.5%;
+    margin-bottom: 1px;
+}
 
 .capitalize {
     text-transform: capitalize;

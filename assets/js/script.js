@@ -96,7 +96,7 @@ let stockMaker = function(data){
     stockHook.innerHTML=''
     //create card div
     let CardEl = document.createElement("div");
-        CardEl.classList.add("card", "blue-grey","cardFormat");
+        CardEl.classList.add("card", "blue-grey","cardFormat", "white-text");
         CardEl.setAttribute("id","stockBlock")
     //create card title from stock title
    let nameEl = document.createElement("h3");
@@ -143,13 +143,13 @@ let stockMaker = function(data){
         cryptoCardEL.innerHTML=''
     //create card div
     let cryptoInfo = document.createElement("div");
-    cryptoInfo.classList.add("card", "blue-grey", "cardFormat");
+    cryptoInfo.classList.add("card", "blue-grey", "cardFormat", "white-text");
     cryptoInfo.setAttribute("id","cryptoBlock")
     //create card title from stock title
     let nameEl = document.createElement("h3");
        nameEl.classList.add("card-title", "capitalize");
        nameEl.textContent = `${cryptoName}`;
-       console.log("data.name " +data.name)
+       
        cryptoInfo.appendChild(nameEl);
     
        //list wrapper for stock attributes
