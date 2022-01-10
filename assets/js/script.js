@@ -5,7 +5,7 @@ var cryptoCardEL = document.querySelector("#cryptoCard");
 const stockHook = document.querySelector("#stockCard")
 const form2 = document.querySelector('#form2')
 //key for stockdata.org. 
-const stockDataKey = 'cLpuGFilZPWRk7OLK4tniIxMab5iHAJfifiHTK5m'
+// const stockDataKey = 'cLpuGFilZPWRk7OLK4tniIxMab5iHAJfifiHTK5m'
 const testData = [{
     "ticker": "TSLA",
     "name": "Tesla Inc",
@@ -74,6 +74,10 @@ let cryptoData = function(crypto){
   }
 
   cryptoBtn.addEventListener("click", formSubmitHandler)
+
+
+
+  
 
 let fetchStock = function(ticker){
     //url to call stockData
@@ -199,4 +203,3 @@ function form2Handler(event){
 
 
 form2.addEventListener("submit",form2Handler)
-
