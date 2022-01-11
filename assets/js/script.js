@@ -37,8 +37,13 @@ var formSubmitHandler = function(event) {
 
     if (symbols) {
       cryptoData(symbols);
+
+          // clear old content
+
+    // cryptoInput.value = "";
       
-    } else {
+    } 
+    else {
       console.log("Please enter a crypto Symbol")
     }
   };
@@ -65,11 +70,14 @@ let cryptoData = function(crypto){
       .catch(function (error) {
           console.log(error);
       });
-
-     
+      
   }
 
   cryptoBtn.addEventListener("click", formSubmitHandler)
+
+
+
+  
 
 let fetchStock = function(ticker){
     //url to call stockData
@@ -175,6 +183,7 @@ let stockMaker = function(data){
    
     //apply stock to div
     cryptoCardEL.appendChild(cryptoInfo)}
+    cryptoInput.value =""
         }
 
 function form2Handler(event){
@@ -186,10 +195,11 @@ function form2Handler(event){
     console.log(ticker)
     //pass ticker value into fetchStock
     fetchStock(ticker)
+
+    textInput.value=""
 }
 
 
 
 
 form2.addEventListener("submit",form2Handler)
-
