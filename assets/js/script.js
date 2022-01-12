@@ -43,10 +43,12 @@ var formSubmitHandler = function (event) {
     var symbols = cryptoInput.value.trim();
 
     if (symbols) {
+
         cryptoData(symbols);
 
     } else {
         console.log("Please enter a crypto Symbol")
+
     }
 };
 
@@ -56,6 +58,7 @@ let cryptoData = function (crypto) {
 
     // make api request
     fetch(apiUrl).then(function (response) {
+
         // if successful
         if (response.ok) {
             response.json().then(function (data) {
@@ -90,6 +93,7 @@ function form2Handler(event) {
 }
 
 let fetchStock = function (ticker) {
+
     //url to call stockData
     let stockUrl = `https://api.stockdata.org/v1/data/quote?symbols=${ticker}&api_token=${stockDataKey}`;
     fetch(stockUrl)
@@ -147,6 +151,7 @@ let stockMaker = function (data) {
     wrapperEl.appendChild(changeEl);
 
     //apply stock to div
+
     stockHook.appendChild(CardEl)
 }
 
@@ -283,8 +288,10 @@ function displaySearches() {
             searchedCrypto.classList = "waves-effect waves-light btn-small red lighten-1 recentSearchBtn";
             searchedCrypto.textContent = cryptoSearches[i].name;
             cryptoButtonsEl.appendChild(searchedCrypto);
+
         }
     }
+
 
     stockButtonsEl.innerHTML = "";
 
@@ -304,6 +311,7 @@ function displaySearches() {
             stockButtonsEl.appendChild(searchedStock);
         }
     }
+
 }
 
 
@@ -321,3 +329,4 @@ stockButtonsEl.addEventListener("click", function(event) {
 });
 
 displaySearches();
+
