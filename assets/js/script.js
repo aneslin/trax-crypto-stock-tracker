@@ -61,13 +61,14 @@ let cryptoData = function(crypto){
               if (Object.keys(data).length !== 0) {
               // pass lat and long to new api call
               cryptoCurrency(data)
-
               saveCrypto(cryptoInput.value)
-          }});
+            }
+            // else goes here
+        });
       }
-      else {
-          console.log("Error: Crypto Not Found.")
-      };
+      //else {
+          //console.log("Error: Crypto Not Found.")
+     // };
   })
       // if server error
       .catch(function (error) {
