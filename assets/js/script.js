@@ -42,7 +42,6 @@ var formSubmitHandler = function(event) {
 
     if (symbols) {
       cryptoData(symbols);
-      saveCrypto(symbols);
       
     } else {
       console.log("Please enter a crypto Symbol")
@@ -58,10 +57,13 @@ let cryptoData = function(crypto){
       // if successful
       if (response.ok) {
           response.json().then(function (data) {
+
+              if (Object.keys(data).length !== 0) {
               // pass lat and long to new api call
               cryptoCurrency(data)
-              console.log(data); 
-          });
+
+              saveCrypto(cryptoInput.value)
+          }});
       }
       else {
           console.log("Error: Crypto Not Found.")
@@ -77,6 +79,17 @@ let cryptoData = function(crypto){
 
   cryptoBtn.addEventListener("click", formSubmitHandler)
 
+  function form2Handler(event){
+    event.preventDefault()
+    //get value of form input field
+    textInput = document.getElementById('stockInput')
+    //remove space
+    let ticker = textInput.value.trim()
+    console.log(ticker)
+    //pass ticker value into fetchStock
+    fetchStock(ticker);
+}
+
 let fetchStock = function(ticker){
     //url to call stockData
     let stockUrl = `https://api.stockdata.org/v1/data/quote?symbols=${ticker}&api_token=${stockDataKey}`;
@@ -89,11 +102,9 @@ let fetchStock = function(ticker){
                 //parse response to json
                 .then(function(stock){
                     stockMaker(stock.data[0])
-                    console.log(stock)
+                    saveStocks(stock.data[0].ticker)
                     console.log(stock.data[0])
-                    }
-                    )
-                    }
+                    })}
     }//else error modal 
     )
 };
@@ -183,17 +194,7 @@ let stockMaker = function(data){
     cryptoCardEL.appendChild(cryptoInfo)}
         }
 
-function form2Handler(event){
-    event.preventDefault()
-    //get value of form input field
-    textInput = document.getElementById('stockInput')
-    //remove space
-    let ticker = textInput.value.trim()
-    console.log(ticker)
-    //pass ticker value into fetchStock
-    fetchStock(ticker);
-    saveStocks(ticker);
-}
+
 
 function saveStocks(stockName) {
 
@@ -255,7 +256,7 @@ function displaySearches() {
             // create elements
             const searchedCrypto = document.createElement("button");
             searchedCrypto.setAttribute("type", "button");
-            searchedCrypto.classList = "waves-effect waves-light btn-small red lighten-1";
+            searchedCrypto.classList = "waves-effect waves-light btn-small red lighten-1 recentSearchBtn";
             searchedCrypto.textContent = cryptoSearches[i].name;
             cryptoButtonsEl.appendChild(searchedCrypto);
         }
@@ -274,7 +275,7 @@ function displaySearches() {
             // create stock elements
             const searchedStock = document.createElement("button");
             searchedStock.setAttribute("type", "button");
-            searchedStock.classList = "waves-effect waves-light btn-small red lighten-1";
+            searchedStock.classList = "waves-effect waves-light btn-small red lighten-1 recentSearchBtn";
             searchedStock.textContent = stockSearches[i].name;
             stockButtonsEl.appendChild(searchedStock);
         }
