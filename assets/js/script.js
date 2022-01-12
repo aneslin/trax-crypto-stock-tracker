@@ -1,11 +1,15 @@
-var cryptoInput= document.getElementById("cryptoInput");
+var cryptoInput = document.getElementById("cryptoInput");
 var cryptoBtn = document.getElementById("cryptoBtn");
 var cryptoCardEL = document.querySelector("#cryptoCard");
+const cryptoButtonsEl = document.querySelector("#cryptoButtons")
 
 const stockHook = document.querySelector("#stockCard")
 const form2 = document.querySelector('#form2')
-//key for stockdata.org. 
-const stockDataKey = 'cLpuGFilZPWRk7OLK4tniIxMab5iHAJfifiHTK5m'
+const stockButtonsEl = document.querySelector("#stockButtons")
+//key for stockdata.org
+// a cLpuGFilZPWRk7OLK4tniIxMab5iHAJfifiHTK5m 
+// b leaeTor2zYWy3KfiN4qk9nf8GXAKM56KrvLY3iur
+const stockDataKey = 'leaeTor2zYWy3KfiN4qk9nf8GXAKM56KrvLY3iur'
 const testData = [{
     "ticker": "TSLA",
     "name": "Tesla Inc",
@@ -28,178 +32,301 @@ const testData = [{
     "last_trade_time": "2022-01-05T15:59:58.000000"
 }];
 
-var formSubmitHandler = function(event) {
+let stockSearches = [];
+let cryptoSearches = [];
+
+var formSubmitHandler = function (event) {
     // prevent page from refreshing
     event.preventDefault();
-  
+
     // get value from input element
     var symbols = cryptoInput.value.trim();
 
     if (symbols) {
-      cryptoData(symbols);
 
-          // clear old content
+        cryptoData(symbols);
 
-    // cryptoInput.value = "";
-      
-    } 
-    else {
-      console.log("Please enter a crypto Symbol")
+    } else {
+        console.log("Please enter a crypto Symbol")
+
     }
-  };
-
-let cryptoData = function(crypto){
-    // Api URl 
-    let apiUrl = "https://api.coingecko.com/api/v3/simple/price?ids=" + crypto + "&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true";
-  
-    // make api request
-    fetch(apiUrl).then(function (response) {
-      // if successful
-      if (response.ok) {
-          response.json().then(function (data) {
-              // pass lat and long to new api call
-              cryptoCurrency(data)
-              console.log(data); 
-          });
-      }
-      else {
-          console.log("Error: Crypto Not Found.")
-      };
-  })
-      // if server error
-      .catch(function (error) {
-          console.log(error);
-      });
-      
-  }
-
-  cryptoBtn.addEventListener("click", formSubmitHandler)
-
-
-
-  
-
-let fetchStock = function(ticker){
-    //url to call stockData
-    let stockUrl = `https://api.stockdata.org/v1/data/quote?symbols=${ticker}&api_token=${stockDataKey}`;
-    fetch(stockUrl)
-    .then(function(response){
-        //check if response is good
-        if (response.ok){
-            //if response is good, pull response
-                response.json()
-                //parse response to json
-                .then(function(stock){
-                    stockMaker(stock.data[0])
-                    console.log(stock)
-                    console.log(stock.data[0])
-                    }
-                    )
-                    }
-    }//else error modal 
-    )
 };
 
-let stockMaker = function(data){
-    stockHook.innerHTML=''
-    //create card div
-    let CardEl = document.createElement("div");
-        CardEl.classList.add("card", "blue-grey","cardFormat", "white-text");
-        CardEl.setAttribute("id","stockBlock")
-    //create card title from stock title
-   let nameEl = document.createElement("h3");
-       nameEl.classList.add("card-title");
-       nameEl.textContent = data.name;
-       CardEl.appendChild(nameEl);
-    
-       //list wrapper for stock attributes
-   let wrapperEl = document.createElement("ul");
-   
-       CardEl.appendChild(wrapperEl)
+let cryptoData = function (crypto) {
+    // Api URl 
+    let apiUrl = "https://api.coingecko.com/api/v3/simple/price?ids=" + crypto + "&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true";
 
-    //attributes
-   let tickerEl = document.createElement("li");
-       tickerEl.textContent = ` Symbol: ${data.ticker}`;
-       wrapperEl.appendChild(tickerEl);
+    // make api request
+    fetch(apiUrl).then(function (response) {
 
-   let priceEl = document.createElement("li");
-       priceEl.textContent = `Price: ${data.price}`;
-       wrapperEl.appendChild(priceEl);
+        // if successful
+        if (response.ok) {
+            response.json().then(function (data) {
 
-   let highEl = document.createElement("li");
-       highEl.textContent =`Daily High: ${data.day_high}`;
-       wrapperEl.appendChild(highEl);
-    
-   let lowEl = document.createElement('li');
-       lowEl.textContent = `Daily Low: ${data.day_low}`;
-       wrapperEl.appendChild(lowEl);
-
-   let changeEl = document.createElement("li");
-       changeEl.textContent = `Day Change: ${data.day_change}`
-       wrapperEl.appendChild(changeEl);
-   
-    //apply stock to div
-    stockHook.appendChild(CardEl)}
-
-
-    
-    let cryptoCurrency = function(data){
-        for( key in data ) {
-            let fetchedData  = data[key]
-          
-        var cryptoName = cryptoInput.value;
-        cryptoCardEL.innerHTML=''
-    //create card div
-    let cryptoInfo = document.createElement("div");
-    cryptoInfo.classList.add("card", "blue-grey", "cardFormat", "white-text");
-    cryptoInfo.setAttribute("id","cryptoBlock")
-    //create card title from stock title
-    let nameEl = document.createElement("h3");
-       nameEl.classList.add("card-title", "capitalize");
-       nameEl.textContent = `${cryptoName}`;
-       
-       cryptoInfo.appendChild(nameEl);
-    
-       //list wrapper for stock attributes
-   let wrapperEl = document.createElement("ul");
-       cryptoInfo.appendChild(wrapperEl)
-
-    //attributes
-  // let tickerEl = document.createElement("li");
-    //   tickerEl.textContent = `${cryptoName}`;
-      // wrapperEl.appendChild(tickerEl);
-
-   let priceEl = document.createElement("li");
-       priceEl.textContent = `Price: ${fetchedData.usd}`;
-       wrapperEl.appendChild(priceEl);
-
-   let highEl = document.createElement("li");
-       highEl.textContent =`Market Cap (Billions): ${fetchedData.usd_market_cap}`;
-       wrapperEl.appendChild(highEl);
-    
-   let lowEl = document.createElement('li');
-       lowEl.textContent = `Volume (24 hours): ${fetchedData.usd_24h_vol}`;
-       wrapperEl.appendChild(lowEl);
-   
-    //apply stock to div
-    cryptoCardEL.appendChild(cryptoInfo)}
-    cryptoInput.value =""
+                if (Object.keys(data).length !== 0) {
+                    // pass lat and long to new api call
+                    cryptoCurrency(data, crypto)
+                    saveCrypto(crypto)
+                }
+                // else goes here
+            });
         }
+    })
+        // if server error
+        .catch(function (error) {
+            console.log(error);
+        });
 
-function form2Handler(event){
+
+}
+
+
+
+function form2Handler(event) {
     event.preventDefault()
     //get value of form input field
     textInput = document.getElementById('stockInput')
     //remove space
     let ticker = textInput.value.trim()
-    console.log(ticker)
     //pass ticker value into fetchStock
-    fetchStock(ticker)
+    fetchStock(ticker);
+}
 
-    textInput.value=""
+let fetchStock = function (ticker) {
+
+    //url to call stockData
+    let stockUrl = `https://api.stockdata.org/v1/data/quote?symbols=${ticker}&api_token=${stockDataKey}`;
+    fetch(stockUrl)
+        .then(function (response) {
+            //check if response is good
+            if (response.ok) {
+                //if response is good, pull response
+                response.json()
+                    //parse response to json
+                    .then(function (stock) {
+                        stockMaker(stock.data[0])
+                        saveStocks(stock.data[0].ticker)
+                    })
+            };
+        }//else error modal 
+        )
+};
+
+let stockMaker = function (data) {
+    stockHook.innerHTML = ''
+    //create card div
+    let CardEl = document.createElement("div");
+    CardEl.classList.add("card", "blue-grey", "cardFormat", "white-text");
+    CardEl.setAttribute("id", "stockBlock")
+    //create card title from stock title
+    let nameEl = document.createElement("h3");
+    nameEl.classList.add("card-title");
+    nameEl.textContent = data.name;
+    CardEl.appendChild(nameEl);
+
+    //list wrapper for stock attributes
+    let wrapperEl = document.createElement("ul");
+
+    CardEl.appendChild(wrapperEl)
+
+    //attributes
+    let tickerEl = document.createElement("li");
+    tickerEl.textContent = ` Symbol: ${data.ticker}`;
+    wrapperEl.appendChild(tickerEl);
+
+    let priceEl = document.createElement("li");
+    priceEl.textContent = `Price: ${data.price}`;
+    wrapperEl.appendChild(priceEl);
+
+    let highEl = document.createElement("li");
+    highEl.textContent = `Daily High: ${data.day_high}`;
+    wrapperEl.appendChild(highEl);
+
+    let lowEl = document.createElement('li');
+    lowEl.textContent = `Daily Low: ${data.day_low}`;
+    wrapperEl.appendChild(lowEl);
+
+    let changeEl = document.createElement("li");
+    changeEl.textContent = `Day Change: ${data.day_change}`
+    wrapperEl.appendChild(changeEl);
+
+    //apply stock to div
+
+    stockHook.appendChild(CardEl)
 }
 
 
 
+let cryptoCurrency = function (data, crypto) {
+    for (key in data) {
+        let fetchedData = data[key]
 
-form2.addEventListener("submit",form2Handler)
+        var cryptoName = crypto;
+        cryptoCardEL.innerHTML = ''
+        //create card div
+        let cryptoInfo = document.createElement("div");
+        cryptoInfo.classList.add("card", "blue-grey", "cardFormat", "white-text");
+        cryptoInfo.setAttribute("id", "cryptoBlock")
+        //create card title from stock title
+        let nameEl = document.createElement("h3");
+        nameEl.classList.add("card-title", "capitalize");
+        nameEl.textContent = `${cryptoName}`;
+
+        cryptoInfo.appendChild(nameEl);
+
+        //list wrapper for stock attributes
+        let wrapperEl = document.createElement("ul");
+        cryptoInfo.appendChild(wrapperEl)
+
+        //attributes
+        // let tickerEl = document.createElement("li");
+        //   tickerEl.textContent = `${cryptoName}`;
+        // wrapperEl.appendChild(tickerEl);
+
+        let priceEl = document.createElement("li");
+        priceEl.textContent = `Price: ${fetchedData.usd}`;
+        wrapperEl.appendChild(priceEl);
+
+        let highEl = document.createElement("li");
+        highEl.textContent = `Market Cap (Billions): ${fetchedData.usd_market_cap}`;
+        wrapperEl.appendChild(highEl);
+
+        let lowEl = document.createElement('li');
+        lowEl.textContent = `Volume (24 hours): ${fetchedData.usd_24h_vol}`;
+        wrapperEl.appendChild(lowEl);
+
+        //apply stock to div
+        cryptoCardEL.appendChild(cryptoInfo)
+    }
+}
+
+
+
+function saveStocks(stockName) {
+
+    // check if local storage is empty
+    if (localStorage.getItem('stockSearch') === null) {
+        let stockSearchObj = {
+            name: stockName
+        };
+        // push obj to empty array
+        stockSearches.push(stockSearchObj)
+        // set array in local storage
+        localStorage.setItem("stockSearch", JSON.stringify(stockSearches))
+    } else {
+
+        // redefine array to whats in local storage
+        stockSearches = localStorage.getItem('stockSearch')
+
+        stockSearches = JSON.parse(stockSearches)
+        
+        for (var i = 0; i < stockSearches.length; i++) {
+            if (stockName === stockSearches[i].name) {
+                return;
+            };
+        };
+
+        let stockSearchObj = {
+            name: stockName
+        };
+        stockSearches.push(stockSearchObj)
+        localStorage.setItem("stockSearch", JSON.stringify(stockSearches))
+
+    };
+    displaySearches();
+};
+
+function saveCrypto(cryptoName) {
+
+    // check if local storage is empty
+    if (localStorage.getItem('cryptoSearch') === null) {
+        const cryptoSearchObj = {
+            name: cryptoName
+        };
+        // push obj to empty array
+        cryptoSearches.push(cryptoSearchObj)
+        // set array in local storage
+        localStorage.setItem('cryptoSearch', JSON.stringify(cryptoSearches))
+    }
+    else {
+        // redefine array to whats inside local storage
+        cryptoSearches = localStorage.getItem('cryptoSearch')
+
+        cryptoSearches = JSON.parse(cryptoSearches)
+
+        // Iterate thru array, if value exists end function
+        for (var i = 0; i < cryptoSearches.length; i++) {
+            if (cryptoName === cryptoSearches[i].name || cryptoName === "") {
+                return;
+            };
+        };
+
+        let cryptoSearchObj = {
+            name: cryptoName
+        };
+        // push obj to array
+        cryptoSearches.push(cryptoSearchObj)
+        localStorage.setItem('cryptoSearch', JSON.stringify(cryptoSearches))
+    };
+    displaySearches();
+};
+
+function displaySearches() {
+    cryptoButtonsEl.innerHTML = "";
+
+    if (localStorage.getItem("cryptoSearch")) {
+
+        cryptoSearches = JSON.parse(localStorage.getItem("cryptoSearch"))
+    }
+
+    if (cryptoSearches !== null) {
+        for (var i = 0; i < cryptoSearches.length; i++) {
+
+            // create elements
+            const searchedCrypto = document.createElement("button");
+            searchedCrypto.setAttribute("type", "button");
+            searchedCrypto.classList = "waves-effect waves-light btn-small red lighten-1 recentSearchBtn";
+            searchedCrypto.textContent = cryptoSearches[i].name;
+            cryptoButtonsEl.appendChild(searchedCrypto);
+
+        }
+    }
+
+
+    stockButtonsEl.innerHTML = "";
+
+    if (localStorage.getItem("stockSearch")) {
+
+        stockSearches = JSON.parse(localStorage.getItem("stockSearch"))
+    }
+
+    if (stockSearches !== null) {
+        for (var i = 0; i < stockSearches.length; i++) {
+
+            // create stock elements
+            const searchedStock = document.createElement("button");
+            searchedStock.setAttribute("type", "button");
+            searchedStock.classList = "waves-effect waves-light btn-small red lighten-1 recentSearchBtn";
+            searchedStock.textContent = stockSearches[i].name;
+            stockButtonsEl.appendChild(searchedStock);
+        }
+    }
+
+}
+
+
+
+cryptoBtn.addEventListener("click", formSubmitHandler)
+form2.addEventListener("submit", form2Handler)
+
+cryptoButtonsEl.addEventListener("click", function(event) {
+    console.log("click")
+    cryptoData(event.target.textContent)
+});
+
+stockButtonsEl.addEventListener("click", function(event) {
+    fetchStock(event.target.textContent)
+});
+
+displaySearches();
+

@@ -30,3 +30,17 @@ header{
     padding-left: 5px;
     padding-top: 1px;
 }
+
+.recentSearchBtn {
+    margin-left: 3px;
+    margin-bottom: 2px;
+}
+
+/* utilies */
+.borderRadius {
+    border-radius: 4px;
+}
+
+.textShadow {
+    text-shadow: 0px 3px 4px #5e5e5e;
+}

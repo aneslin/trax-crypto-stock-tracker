@@ -12,25 +12,25 @@
 </head>
 
 <body>
-    <header class="col l4 s12 grey darken-2">
+    <header class="col l4 s12 grey darken-1 z-depth-2 borderRadius">
         <div class="titleText">
-        <h1 class="white-text">TRAX</h1>
-        <p class="white-text">Stay up to date on current stocks and cryptos.</p>
+        <h1 class="white-text textShadow">TRA<span class="red-text text-lighten-2">X</span></h1>
+        <p class="white-text textShadow">Stay up to date on current stocks and cryptos.</p>
     </div>
     </header>
     <div class="row">
         <div class="col s12 m6 l4">
             <div class="card grey darken-1">
                 <form id="form1" class="card-content white-text">
-                    <label for="cryptoInput" class="white-text"><span class='card-title'>Crypto</span></label>
-                    <input type="text" id="cryptoInput" class="white-text">
+                    <label for="cryptoInput" class="white-text"><span class='card-title textShadow'>Crypto</span></label>
+                    <input type="text" id="cryptoInput" placeholder="Search By Name" class="white-text">
                     <button type="submit" value="Submit" class="waves-effect waves-light btn-small red lighten-2" id="cryptoBtn">Search</button>
                 </form>
                 <div id="cryptoButtons"></div>
                 <div class="divider"></div>
                 <form id="form2" class="card-content white-text">
-                    <label for="stockInput" class="white-text"><span class="card-title">Stock</span></label>
-                    <input type="text" id="stockInput" class="white-text">
+                    <label for="stockInput" class="white-text"><span class="card-title textShadow">Stock</span></label>
+                    <input type="text" id="stockInput" placeholder="Search By Symbol" class="white-text">
                     <button type="submit" value="Submit" class="waves-effect waves-light btn-small red lighten-2">Search</button>
                 </form>
                 <div id="stockButtons"></div>
