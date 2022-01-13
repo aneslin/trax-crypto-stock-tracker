@@ -1,6 +1,6 @@
 var cryptoInput = document.getElementById("cryptoInput");
 var cryptoBtn = document.getElementById("cryptoBtn");
-var cryptoCardEL = document.querySelector("#cryptoCard");
+var cryptoCardEl = document.querySelector("#cryptoCard");
 const cryptoButtonsEl = document.querySelector("#cryptoButtons")
 
 const stockHook = document.querySelector("#stockCard")
@@ -37,19 +37,31 @@ let cryptoSearches = [];
 
 var formSubmitHandler = function (event) {
     // prevent page from refreshing
-    event.preventDefault();
 
+    event.preventDefault();
+    
     // get value from input element
     var symbols = cryptoInput.value.trim();
+
 
     if (symbols) {
 
         cryptoData(symbols);
+        
 
-    } else {
-        console.log("Please enter a crypto Symbol")
-
-    }
+    } 
+    else {
+           cryptoCardEl.textContent='';
+           let cryptoErrorDiv = document.createElement("div")
+           cryptoErrorDiv.classList =" card red cardFormat "
+           cryptoCardEl.appendChild(cryptoErrorDiv)
+           let cryptoErrorEl = document.createElement("h3")
+           cryptoErrorEl.textContent = "Please Enter A Crypto Name!"
+           cryptoErrorEl.classList = "white-text"
+           cryptoErrorDiv.appendChild(cryptoErrorEl)
+           
+       }
+       cryptoInput.value= '';
 };
 
 let cryptoData = function (crypto) {
@@ -67,6 +79,17 @@ let cryptoData = function (crypto) {
                     // pass lat and long to new api call
                     cryptoCurrency(data, crypto)
                     saveCrypto(crypto)
+                }
+                else {
+                    cryptoCardEl.textContent='';
+                    let cryptoErrorDiv = document.createElement("div")
+                    cryptoErrorDiv.classList =" card red cardFormat "
+                    cryptoCardEl.appendChild(cryptoErrorDiv)
+                    let cryptoErrorEl = document.createElement("h3")
+                    cryptoErrorEl.textContent = "Please Enter A Crypto Name!"
+                    cryptoErrorEl.classList = "white-text"
+                    cryptoErrorDiv.appendChild(cryptoErrorEl)
+                    
                 }
                 // else goes here
             });
@@ -90,6 +113,40 @@ function form2Handler(event) {
     let ticker = textInput.value.trim()
     //pass ticker value into fetchStock
     fetchStock(ticker);
+
+    if (ticker) {
+
+        fetchStock(ticker);
+
+    } 
+    else {
+           stockHook.textContent='';
+           let cryptoErrorDiv = document.createElement("div")
+           cryptoErrorDiv.classList =" card red cardFormat "
+           stockHook.appendChild(cryptoErrorDiv)
+           let cryptoErrorEl = document.createElement("h3")
+           cryptoErrorEl.textContent = "Please Enter A Stock Ticker!"
+           cryptoErrorEl.classList = "white-text"
+           cryptoErrorDiv.appendChild(cryptoErrorEl)
+           
+       }
+
+       textInput.value=""
+}
+
+let errorfunct = function(input) {
+console.log(`${input} is not valid`)
+
+stockHook.textContent='';
+let cryptoErrorDiv = document.createElement("div")
+cryptoErrorDiv.classList =" card red cardFormat "
+stockHook.appendChild(cryptoErrorDiv)
+let cryptoErrorEl = document.createElement("h3")
+cryptoErrorEl.textContent = "Please Enter A Stock Ticker!"
+cryptoErrorEl.classList = "white-text"
+cryptoErrorDiv.appendChild(cryptoErrorEl)
+
+
 }
 
 let fetchStock = function (ticker) {
@@ -101,16 +158,24 @@ let fetchStock = function (ticker) {
             //check if response is good
             if (response.ok) {
                 //if response is good, pull response
+                // if (stock.data.length===0){}
                 response.json()
                     //parse response to json
                     .then(function (stock) {
+                        if (stock.data.length === 0) {
+                            errorfunct(ticker)
+                        } else {
                         stockMaker(stock.data[0])
                         saveStocks(stock.data[0].ticker)
-                    })
-            };
-        }//else error modal 
-        )
-};
+                    }
+                    
+            });
+               
+    }//else error modal 
+    
+})
+}
+
 
 let stockMaker = function (data) {
     stockHook.innerHTML = ''
@@ -162,7 +227,7 @@ let cryptoCurrency = function (data, crypto) {
         let fetchedData = data[key]
 
         var cryptoName = crypto;
-        cryptoCardEL.innerHTML = ''
+        cryptoCardEl.innerHTML = ''
         //create card div
         let cryptoInfo = document.createElement("div");
         cryptoInfo.classList.add("card", "blue-grey", "cardFormat", "white-text");
@@ -196,7 +261,7 @@ let cryptoCurrency = function (data, crypto) {
         wrapperEl.appendChild(lowEl);
 
         //apply stock to div
-        cryptoCardEL.appendChild(cryptoInfo)
+        cryptoCardEl.appendChild(cryptoInfo)
     }
 }
 
