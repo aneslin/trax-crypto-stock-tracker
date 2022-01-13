@@ -50,7 +50,7 @@ var formSubmitHandler = function(event) {
         let cryptoErrorDiv = document.createElement("div")
         cryptoErrorDiv.classList =" card red cardFormat "
         cryptoCardEl.appendChild(cryptoErrorDiv)
-        let cryptoErrorEl = document.createElement("p")
+        let cryptoErrorEl = document.createElement("h3")
         cryptoErrorEl.textContent = "Please Enter A Crypto Name!"
         cryptoErrorEl.classList = "white-text"
         cryptoErrorDiv.appendChild(cryptoErrorEl)
@@ -80,7 +80,7 @@ let cryptoData = function(crypto){
                 let cryptoErrorDiv = document.createElement("div")
                 cryptoErrorDiv.classList =" card red cardFormat "
                 cryptoCardEl.appendChild(cryptoErrorDiv)
-                let cryptoErrorEl = document.createElement("p")
+                let cryptoErrorEl = document.createElement("h3")
                 cryptoErrorEl.textContent = "Please Enter A Crypto Name!"
                 cryptoErrorEl.classList = "white-text"
                 cryptoErrorDiv.appendChild(cryptoErrorEl)
@@ -111,20 +111,20 @@ let cryptoData = function(crypto){
     let ticker = textInput.value.trim()
     console.log(ticker)
     //pass ticker value into fetchStock
-    fetchStock(ticker);
+    // fetchStock(ticker);
     if (ticker) {
         fetchStock(ticker);
-        // saveStocks(ticker);
+        saveStocks(ticker);
     
           }
           else {
-            let cryptoErrorDiv = document.createElement("div")
-            cryptoErrorDiv.classList =" card red cardFormat "
-            stockHook.appendChild(cryptoErrorDiv)
-            let cryptoErrorEl = document.createElement("p")
-            cryptoErrorEl.textContent = "Please Enter A Stock Ticker!"
-            cryptoErrorEl.classList = "white-text"
-            cryptoErrorDiv.appendChild(cryptoErrorEl)
+            let stockErrorDiv = document.createElement("div")
+            stockErrorDiv.classList =" card red cardFormat "
+            stockHook.appendChild(stockErrorDiv)
+            let stockErrorEl = document.createElement("h3")
+            stockErrorEl.textContent = "Please Enter A Stock Ticker!"
+            stockErrorEl.classList = "white-text"
+            stockErrorDiv.appendChild(stockErrorEl)
             
         }
 
@@ -142,19 +142,17 @@ let fetchStock = function(ticker){
                 //parse response to json
                 .then(function(stock){
                     stockMaker(stock.data[0])
-                    saveStocks(stock.data[0].ticker)
+                    // saveStocks(stock.data[0].ticker)
                     console.log(stock.data[0])
                     })
-                }  else {
-                    stockHook.textContent=''
-                    let cryptoErrorDiv = document.createElement("div")
-                    cryptoErrorDiv.classList =" card red cardFormat "
-                    stockHook.appendChild(cryptoErrorDiv)
-                    let cryptoErrorEl = document.createElement("p")
-                    cryptoErrorEl.textContent = "Please Enter A Stock Ticker!"
-                    cryptoErrorEl.classList = "white-text"
-                    cryptoErrorDiv.appendChild(cryptoErrorEl)
-                    
+                }          else {
+                    let stockErrorDiv = document.createElement("div")
+                    stockErrorDiv.classList =" card red cardFormat "
+                    stockHook.appendChild(stockErrorDiv)
+                    let stockErrorEl = document.createElement("h3")
+                    stockErrorEl.textContent = "Please Enter A Stock Ticker!"
+                    stockErrorEl.classList = "white-text"
+                    stockErrorDiv.appendChild(stockErrorEl)
                     
                 }
                     
