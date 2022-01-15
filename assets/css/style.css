@@ -27,13 +27,14 @@ header{
 }
 
 .cardFormat{
-    padding-left: 5px;
+    padding-left: 10px;
     padding-top: 1px;
+    padding-bottom: 6px;
 }
 
 .recentSearchBtn {
-    margin-left: 3px;
-    margin-bottom: 2px;
+    margin-left: 5px;
+    margin-bottom: 6px;
 }
 
 /* utilies */
