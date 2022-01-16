@@ -31,6 +31,7 @@ Trax is a fully responsive application for checking stock and crypto currency da
 
 
 ## Screenshots
+![demo GIF](./TRAX.gif) 
 
 
 ## Known Issues
@@ -51,5 +52,4 @@ Trax is a fully responsive application for checking stock and crypto currency da
 
 
 
-![](https://github.com/aneslin/trax-crypto-stock-tracker/blob/main/TRAX.gif)
 
