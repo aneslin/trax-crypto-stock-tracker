@@ -1,5 +1,8 @@
 # TRAX stock and Crypto Tracking app
 
+## Puprose 
+A lightweight web application designed for mobile for tracking your traditional and non traditional investments in stocks and crypto . 
+
 ## Description  
   
 Trax is a fully responsive application for checking stock and crypto currency data.  The user may enter a crypto name or stock symbol in the appropriate field.  Current data will be displayed for selected crypto currency.  Each unique currency or stock symbol will appear as a button beneath the search box for quick recall.  
@@ -40,3 +43,9 @@ Trax is a fully responsive application for checking stock and crypto currency da
 * Allow users to search for stock name or stock symbol
 * Allow user to clear out saved searches
 * More secure storage of API keys.  
+
+
+
+
+
+
